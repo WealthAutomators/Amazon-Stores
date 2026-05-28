@@ -38,31 +38,28 @@ interface AmazonDateRangePickerProps {
 
 type ActiveField = "start" | "end" | null;
 
-const FIELD_HELPER_TEXT = {
-  start: "Select start date — earlier dates are excluded from the range",
-  end: "Select end date — later dates are excluded from the range",
-} as const;
-
 function toIso(date: Date): string {
   return format(date, "yyyy-MM-dd");
 }
 
-const EXCLUDED_CELL_BG = "#e4e4e4";
-
-const dayPickerClassNames = {
-  root: "p-3 amazon-day-picker",
-  month_grid: "border-collapse",
-  month_caption:
-    "flex justify-center pb-2 text-[13px] font-semibold text-[#111111]",
-  nav: "flex items-center justify-between absolute inset-x-3 top-3",
-  button_previous:
-    "h-7 w-7 rounded text-[#565959] hover:bg-[#f3f5f6]",
-  button_next: "h-7 w-7 rounded text-[#565959] hover:bg-[#f3f5f6]",
-  weekday: "w-9 text-center text-[11px] font-normal text-[#565959]",
-  day: "rdp-day h-9 w-9 p-0 text-center text-[13px]",
-  day_button: "rdp-day_button h-9 w-9 rounded-none font-normal",
+const AMAZON_CALENDAR_CLASS_NAMES = {
+  root: "amazon-day-picker rdp-root",
+  months: "rdp-months",
+  month: "rdp-month",
+  month_caption: "rdp-month_caption",
+  caption_label: "rdp-caption_label",
+  nav: "rdp-nav",
+  button_previous: "rdp-button_previous",
+  button_next: "rdp-button_next",
+  month_grid: "rdp-month_grid",
+  weekdays: "rdp-weekdays",
+  weekday: "rdp-weekday",
+  week: "rdp-week",
+  day: "rdp-day",
+  day_button: "rdp-day_button",
   selected: "rdp-selected",
-  today: "[&>button]:font-bold",
+  outside: "rdp-outside",
+  today: "rdp-today",
 } as const;
 
 function getAnchorDate(range: DateRange, field: "start" | "end"): Date {
@@ -173,13 +170,18 @@ export function AmazonDateRangePicker({
                 </button>
               </PopoverTrigger>
               <PopoverContent
-                className="w-auto border-[#d5d9d9] p-0"
                 align="start"
-                sideOffset={4}
+                sideOffset={2}
+                className={cn(
+                  "w-auto min-w-[240px] overflow-hidden rounded-sm border border-[#adb1b8] bg-white p-0 shadow-[0_1px_3px_rgba(0,0,0,0.12)]",
+                  "data-[state=open]:animate-none data-[state=closed]:animate-none"
+                )}
               >
                 <DayPicker
                   key={`${field}-${range.start}-${range.end}`}
                   mode="single"
+                  navLayout="around"
+                  showOutsideDays
                   selected={anchorDate}
                   onSelect={(date) => handleDayClick(date, field)}
                   defaultMonth={anchorDate}
@@ -189,16 +191,8 @@ export function AmazonDateRangePicker({
                       ? START_MODIFIER_CLASS_NAMES
                       : END_MODIFIER_CLASS_NAMES
                   }
-                  modifiersStyles={
-                    field === "start"
-                      ? { beforeAnchor: { backgroundColor: EXCLUDED_CELL_BG } }
-                      : { afterAnchor: { backgroundColor: EXCLUDED_CELL_BG } }
-                  }
-                  classNames={dayPickerClassNames}
+                  classNames={AMAZON_CALENDAR_CLASS_NAMES}
                 />
-                <p className="border-t border-[#d5d9d9] px-3 py-2 text-[11px] text-[#565959]">
-                  {FIELD_HELPER_TEXT[field]}
-                </p>
               </PopoverContent>
             </Popover>
           );

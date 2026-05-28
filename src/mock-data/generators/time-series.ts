@@ -2,6 +2,8 @@ import { generateAmazonBehavioralSeries, mulberry32 } from "@/mock-data/generato
 import { generateAmazonApexSeries } from "@/mock-data/generators/amazon-apex-series";
 import { generateAmazonChokebodySeries } from "@/mock-data/generators/amazon-chokebody-series";
 import { generateAmazonNovaSeries } from "@/mock-data/generators/amazon-nova-series";
+import { applyAmazonLast90DaysLift } from "@/mock-data/generators/amazon-last-90-days-lift";
+import { applyWalmartLast90DaysLift } from "@/mock-data/generators/walmart-last-90-days-lift";
 import { generateWalmartSecondSeries } from "@/mock-data/generators/walmart-second-series";
 import type { AmazonTimeSeriesProfile, WalmartTimeSeriesProfile } from "@/types/store-data";
 
@@ -23,16 +25,33 @@ export interface GenerateTimeSeriesOptions {
 export function generateAmazonTimeSeries(
   options: GenerateTimeSeriesOptions
 ): { date: string; unitsOrdered: number; orderedProductSales: number }[] {
+  const liftOptions = {
+    seed: options.seed ?? 42,
+    preserveTotals: false,
+  } as const;
+
   if (options.timeSeriesProfile === "midmarket-growth") {
-    return generateAmazonChokebodySeries(options);
+    return applyAmazonLast90DaysLift(
+      generateAmazonChokebodySeries(options),
+      liftOptions
+    );
   }
   if (options.timeSeriesProfile === "enterprise-twin-peak") {
-    return generateAmazonApexSeries(options);
+    return applyAmazonLast90DaysLift(
+      generateAmazonApexSeries(options),
+      liftOptions
+    );
   }
   if (options.timeSeriesProfile === "midmarket-spike-decline") {
-    return generateAmazonNovaSeries(options);
+    return applyAmazonLast90DaysLift(
+      generateAmazonNovaSeries(options),
+      liftOptions
+    );
   }
-  return generateAmazonBehavioralSeries(options);
+  return applyAmazonLast90DaysLift(
+    generateAmazonBehavioralSeries(options),
+    liftOptions
+  );
 }
 
 export function generateWalmartTimeSeries(
@@ -121,6 +140,13 @@ export function generateWalmartTimeSeries(
 
     outCursor.setDate(outCursor.getDate() + 1);
     dayIndex++;
+  }
+
+  if (options.walmartTimeSeriesProfile === "spike-collapse") {
+    return applyWalmartLast90DaysLift(points, {
+      seed: options.seed ?? 42,
+      preserveTotals: false,
+    });
   }
 
   return points;
