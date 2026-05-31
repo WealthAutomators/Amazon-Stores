@@ -184,9 +184,7 @@ export async function getAmazonDashboard(
 
   const snapshot = buildSnapshot(aggregate, {
     ...overrides?.snapshot,
-    generatedAt:
-      overrides?.snapshot?.generatedAt ??
-      (defaultAggregate ? "2026-05-15T16:20:56-07:00" : undefined),
+    generatedAt: new Date().toISOString(),
   });
 
   return {

@@ -1,10 +1,24 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { formatCurrency } from "@/lib/format-currency";
-import { formatTimestamp } from "@/lib/format-date";
+import { formatLiveTimestamp } from "@/lib/format-date";
 import { MetricTile } from "@/components/dashboard/metric-tile";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { SalesSnapshot } from "@/types/amazon";
+
+function useTakenAtLabel(refreshToken?: string): string {
+  const [label, setLabel] = useState(() => formatLiveTimestamp());
+
+  useEffect(() => {
+    const tick = () => setLabel(formatLiveTimestamp());
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => window.clearInterval(id);
+  }, [refreshToken]);
+
+  return label;
+}
 
 interface SalesSnapshotSectionProps {
   snapshot?: SalesSnapshot | null;
@@ -15,6 +29,8 @@ export function SalesSnapshotSection({
   snapshot,
   isLoading,
 }: SalesSnapshotSectionProps) {
+  const takenAtLabel = useTakenAtLabel(snapshot?.generatedAt);
+
   if (isLoading || !snapshot) {
     return (
       <section className="border-b border-[#d5d9d9] bg-white px-3 py-3 md:pl-4 md:pr-5">
@@ -33,7 +49,7 @@ export function SalesSnapshotSection({
       <div className="flex flex-wrap items-baseline gap-2 border-b border-[#d5d9d9] pb-2">
         <h2 className="text-[16px] font-bold text-[#111111]">Sales Snapshot</h2>
         <p className="text-[11px] text-[#565959]">
-          taken at {formatTimestamp(snapshot.generatedAt)}
+          taken at {takenAtLabel}
         </p>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-4 py-3 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-5 lg:gap-x-8">

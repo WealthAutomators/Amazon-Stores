@@ -478,7 +478,8 @@ export default function AdminPage() {
                       }
                     />
                     <p className="text-[11px] text-muted-foreground">
-                      Shown as &quot;taken at …&quot; on Sales Snapshot.
+                      Sales Snapshot shows the current local time automatically on
+                      Apply and Refresh; this field is not used on the dashboard.
                     </p>
                   </div>
                 </div>
