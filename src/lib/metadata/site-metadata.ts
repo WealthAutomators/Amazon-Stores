@@ -14,34 +14,12 @@ export const AMAZON_DESCRIPTION =
 export const WALMART_DESCRIPTION =
   "Account sales insights, GMV trends, and performance reporting for Walmart Seller Center.";
 
-/** Bump when favicon assets change to defeat browser cache. */
-export const FAVICON_CACHE_VERSION = "4";
-
-export const FAVICON = {
-  default: "/favicons/seller-platform.svg",
-  amazon: `/favicons/amazon-seller-central.png?v=${FAVICON_CACHE_VERSION}`,
-  walmart: `/favicons/walmart-seller-center.png?v=${FAVICON_CACHE_VERSION}`,
-} as const;
+export const PLATFORM_FAVICON = "/favicons/seller-platform.svg";
 
 export function getPlatformIconsMetadata(): NonNullable<Metadata["icons"]> {
   return {
-    icon: [{ url: FAVICON.default, type: "image/svg+xml" }],
-    shortcut: FAVICON.default,
-  };
-}
-
-export function getStoreIconsMetadata(
-  marketplace: StoreConfig["marketplace"]
-): NonNullable<Metadata["icons"]> {
-  const href = marketplace === "amazon" ? FAVICON.amazon : FAVICON.walmart;
-  const type = marketplace === "amazon" ? "image/png" : "image/png";
-  return {
-    icon: [
-      { url: href, type, sizes: "32x32" },
-      { url: href, type, sizes: "192x192" },
-    ],
-    shortcut: href,
-    apple: href,
+    icon: [{ url: PLATFORM_FAVICON, type: "image/svg+xml" }],
+    shortcut: PLATFORM_FAVICON,
   };
 }
 
