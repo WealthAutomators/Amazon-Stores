@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { DEFAULT_AMAZON_DATE_RANGE } from "@/lib/constants";
+import { getRollingDashboardDateRange } from "@/lib/store/rolling-dashboard-range";
 import type {
   DatePreset,
   FulfillmentChannel,
@@ -9,22 +9,25 @@ import type {
   SalesBreakdown,
 } from "@/types/common";
 
-const defaultFilters: ReportFilters = {
-  preset: "custom",
-  range: { ...DEFAULT_AMAZON_DATE_RANGE },
-  fulfillment: "both",
-  salesBreakdown: "marketplace_total",
-};
+function createDefaultFilters(
+  initial?: Partial<ReportFilters>
+): ReportFilters {
+  return {
+    preset: "30d",
+    range: getRollingDashboardDateRange(),
+    fulfillment: "both",
+    salesBreakdown: "marketplace_total",
+    ...initial,
+  };
+}
 
 export function useReportFilters(initial?: Partial<ReportFilters>) {
-  const [draft, setDraft] = useState<ReportFilters>({
-    ...defaultFilters,
-    ...initial,
-  });
-  const [applied, setApplied] = useState<ReportFilters>({
-    ...defaultFilters,
-    ...initial,
-  });
+  const [draft, setDraft] = useState<ReportFilters>(() =>
+    createDefaultFilters(initial)
+  );
+  const [applied, setApplied] = useState<ReportFilters>(() =>
+    createDefaultFilters(initial)
+  );
 
   const updateDraft = useCallback((patch: Partial<ReportFilters>) => {
     setDraft((prev) => ({ ...prev, ...patch }));

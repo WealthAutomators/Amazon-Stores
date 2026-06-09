@@ -63,7 +63,7 @@ export function applyWalmartLast90DaysLift(
   options: ApplyWalmartLast90DaysLiftOptions
 ): DailyMetricPoint[] {
   const dayCount = points.length;
-  if (dayCount === 0) return points;
+  if (dayCount === 0 || dayCount < LAST_90_DAYS) return points;
 
   const activeStart = dayCount - LAST_90_DAYS;
   const transitionStart = Math.max(0, activeStart - TRANSITION_DAYS);

@@ -1,4 +1,5 @@
 import { getWalmartInsightsPath } from "@/lib/navigation/routes";
+import { getRollingDashboardDateRange } from "@/lib/store/rolling-dashboard-range";
 import type { StoreConfig } from "@/config/stores/types";
 
 export const walmartMainConfig: StoreConfig = {
@@ -18,7 +19,7 @@ export const walmartMainConfig: StoreConfig = {
     chartAccent: "#7d5ab5",
     chartPurple: "#7659b6",
   },
-  defaultDateRange: { start: "2024-01-01", end: "2026-05-14" },
+  defaultDateRange: getRollingDashboardDateRange(),
   regionLabel: "United States",
   routes: {
     home: getWalmartInsightsPath("walmart-main", "account-sales"),

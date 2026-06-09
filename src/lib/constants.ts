@@ -1,12 +1,9 @@
-export const DEFAULT_AMAZON_DATE_RANGE = {
-  start: "2024-05-16",
-  end: "2026-05-15",
-};
+import { getRollingDashboardDateRange } from "@/lib/store/rolling-dashboard-range";
 
-export const DEFAULT_WALMART_DATE_RANGE = {
-  start: "2024-01-01",
-  end: "2026-05-14",
-};
+/** @deprecated Prefer getRollingDashboardDateRange() at runtime on the client. */
+export const DEFAULT_AMAZON_DATE_RANGE = getRollingDashboardDateRange();
+
+export const DEFAULT_WALMART_DATE_RANGE = getRollingDashboardDateRange();
 
 export const MOCK_API_DELAY_MS = 450;
 

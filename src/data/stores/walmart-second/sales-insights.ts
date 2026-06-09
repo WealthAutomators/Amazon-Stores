@@ -1,4 +1,6 @@
 import { generateWalmartTimeSeries } from "@/mock-data/generators/time-series";
+import { getRecentAnalyticsWindow } from "@/lib/store/recent-analytics-window";
+import { getTodayIso } from "@/lib/store/rolling-dashboard-range";
 import type {
   AccountSalesSummary,
   DailySalesRow,
@@ -6,17 +8,15 @@ import type {
 } from "@/types/walmart";
 import type { WalmartStoreDataBundle, WalmartStoreDataConfig } from "@/types/store-data";
 
-export const walmartSecondDataConfig: WalmartStoreDataConfig = {
+export const walmartSecondDataConfig: Omit<
+  WalmartStoreDataConfig,
+  "defaultSummary"
+> & { targetSales?: number } = {
   timeSeriesSeed: 42,
   timeSeriesProfile: "volatile-bursts",
   rangeStart: "2024-05-01",
   rangeEnd: "2026-05-14",
-  defaultSummary: {
-    gmv: 154977.38,
-    unitsSold: 17934,
-    orders: 15371,
-    aur: 8.64,
-  },
+  targetSales: 154977.38,
 };
 
 function buildTableRows(
@@ -44,23 +44,36 @@ function buildTableRows(
   });
 }
 
-function buildWalmartBundle(): WalmartStoreDataBundle {
+function summaryFromPoints(
+  points: ReturnType<typeof generateWalmartTimeSeries>
+): AccountSalesSummary {
+  const gmv = Math.round(points.reduce((s, p) => s + p.gmv, 0) * 100) / 100;
+  const unitsSold = points.reduce((s, p) => s + p.unitsSold, 0);
+  const orders = points.reduce((s, p) => s + p.orders, 0);
+  return {
+    gmv,
+    unitsSold,
+    orders,
+    aur: unitsSold > 0 ? Math.round((gmv / unitsSold) * 100) / 100 : 0,
+  };
+}
+
+export function buildWalmartSecondBundle(): WalmartStoreDataBundle {
+  const anchor = getTodayIso();
+  const window = getRecentAnalyticsWindow(anchor);
+  const rangeStart = window.start;
+  const rangeEnd = anchor;
+
   const points = generateWalmartTimeSeries({
-    startDate: walmartSecondDataConfig.rangeStart,
-    endDate: walmartSecondDataConfig.rangeEnd,
+    startDate: rangeStart,
+    endDate: rangeEnd,
     seed: walmartSecondDataConfig.timeSeriesSeed,
     walmartTimeSeriesProfile: walmartSecondDataConfig.timeSeriesProfile,
-    targetSales: walmartSecondDataConfig.defaultSummary?.gmv,
+    targetSales: walmartSecondDataConfig.targetSales,
   });
 
   const tableRows = buildTableRows(points).reverse();
-  const summary: AccountSalesSummary =
-    walmartSecondDataConfig.defaultSummary ?? {
-      gmv: 0,
-      unitsSold: 0,
-      orders: 0,
-      aur: 0,
-    };
+  const summary = summaryFromPoints(points);
 
   const timeSeries: Record<WalmartMetricKey, { date: string; value: number }[]> = {
     gmv: points.map((p) => ({ date: p.date, value: p.gmv })),
@@ -70,11 +83,14 @@ function buildWalmartBundle(): WalmartStoreDataBundle {
   };
 
   return {
-    config: walmartSecondDataConfig,
+    config: {
+      ...walmartSecondDataConfig,
+      rangeStart,
+      rangeEnd,
+      defaultSummary: summary,
+    },
     summary,
     timeSeries,
     tableRows,
   };
 }
-
-export const walmartSecondBundle = buildWalmartBundle();

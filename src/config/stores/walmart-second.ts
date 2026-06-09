@@ -1,4 +1,5 @@
 import { getWalmartInsightsPath } from "@/lib/navigation/routes";
+import { getRollingDashboardDateRange } from "@/lib/store/rolling-dashboard-range";
 import type { StoreConfig } from "@/config/stores/types";
 
 export const walmartSecondConfig: StoreConfig = {
@@ -7,7 +8,7 @@ export const walmartSecondConfig: StoreConfig = {
   marketplace: "walmart",
   template: "walmart-insights",
   description:
-    "Account sales summary with GMV, units, orders, and AUR aligned to the May 2024–May 2026 reporting window.",
+    "Account sales summary with GMV, units, orders, and AUR for the current May–June reporting window.",
   logo: { src: "/brands/walmart-seller-center.svg", alt: "Walmart Seller Center" },
   branding: {
     primary: "#0071ce",
@@ -18,7 +19,7 @@ export const walmartSecondConfig: StoreConfig = {
     chartAccent: "#7d5ab5",
     chartPurple: "#7659b6",
   },
-  defaultDateRange: { start: "2024-05-01", end: "2026-05-14" },
+  defaultDateRange: getRollingDashboardDateRange(),
   regionLabel: "United States",
   routes: {
     home: getWalmartInsightsPath("walmart-second", "account-sales"),

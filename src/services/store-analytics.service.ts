@@ -1,5 +1,6 @@
 import { MOCK_API_DELAY_MS } from "@/lib/constants";
-import { getStoreConfig, isValidStoreId } from "@/config/stores/registry";
+import { isValidStoreId } from "@/config/stores/registry";
+import { getRollingDashboardDateRange } from "@/lib/store/rolling-dashboard-range";
 import type { StoreId } from "@/config/stores/types";
 import {
   applyIncrementToAmazonAggregate,
@@ -204,11 +205,14 @@ export async function getWalmartInsights(
   if (!isValidStoreId(storeId)) throw new Error(`Unknown store: ${storeId}`);
 
   const bundle = getResolvedWalmartBundle(storeId as StoreId);
-  const filteredRows = bundle.tableRows.filter(
-    (r) => r.date >= filters.range.start && r.date <= filters.range.end
-  );
+  const filteredRows = bundle.tableRows
+    .filter(
+      (r) => r.date >= filters.range.start && r.date <= filters.range.end
+    )
+    .sort((a, b) => b.date.localeCompare(a.date));
 
-  const points = filteredRows.length > 0 ? [...filteredRows].reverse() : bundle.tableRows;
+  const points =
+    filteredRows.length > 0 ? [...filteredRows].reverse() : bundle.tableRows;
 
   const computedSummary = {
     gmv: Math.round(points.reduce((s, r) => s + r.gmv, 0) * 100) / 100,
@@ -221,10 +225,10 @@ export async function getWalmartInsights(
       ? Math.round((computedSummary.gmv / computedSummary.unitsSold) * 100) / 100
       : 0;
 
-  const storeConfig = getStoreConfig(storeId);
+  const rollingDefault = getRollingDashboardDateRange();
   const isDefaultRange =
-    filters.range.start === storeConfig.defaultDateRange.start &&
-    filters.range.end === storeConfig.defaultDateRange.end;
+    filters.range.start === rollingDefault.start &&
+    filters.range.end === rollingDefault.end;
 
   const allOverrides = loadStoreOverrides(storeId);
   const overrides = allOverrides?.walmart;

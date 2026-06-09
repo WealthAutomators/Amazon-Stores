@@ -33,7 +33,7 @@ function applyPreset(preset: DatePreset): { start: string; end: string } {
         end: endStr,
       };
     default:
-      return { start: "2024-05-16", end: "2026-05-15" };
+      return { start: format(subDays(end, 30), "yyyy-MM-dd"), end: endStr };
   }
 }
 
@@ -58,7 +58,6 @@ export function AmazonDashboardPage({
     updateSalesBreakdown,
     applyFilters,
   } = useReportFilters({
-    range: config.defaultDateRange,
     salesBreakdown: "marketplace_total",
   });
 

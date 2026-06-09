@@ -1,4 +1,5 @@
 import { format, isValid, parseISO, startOfMonth, subMonths } from "date-fns";
+import { getTodayIso } from "@/lib/store/rolling-dashboard-range";
 import type { RecentAnalyticsRecord, RecentAnalyticsWindow } from "@/types/recent-analytics";
 
 /** Months of history editable before the data anchor. */
@@ -37,11 +38,10 @@ export function filterRecordsToWindow(
 }
 
 export function getStoreAnalyticsAnchorEnd(
-  marketplace: "amazon" | "walmart",
-  config: { seriesEnd?: string; rangeEnd?: string }
+  _marketplace?: "amazon" | "walmart",
+  _config?: { seriesEnd?: string; rangeEnd?: string }
 ): string {
-  if (marketplace === "amazon") {
-    return config.seriesEnd ?? config.rangeEnd ?? format(new Date(), "yyyy-MM-dd");
-  }
-  return config.rangeEnd ?? config.seriesEnd ?? format(new Date(), "yyyy-MM-dd");
+  void _marketplace;
+  void _config;
+  return getTodayIso();
 }

@@ -47,26 +47,18 @@ function findNextEditableDate(
   const used = new Set(records.map((r) => normalizeTableRowDate(r.date)));
   const anchor = analyticsWindow.anchorEnd;
 
+  // Prefer the most recent open dates first (anchor, then backward) so new rows
+  // appear on the dashboard without landing past the visible range end.
+  let cursor = anchor;
+  for (let i = 0; i < 500; i++) {
+    if (cursor < analyticsWindow.start) break;
+    if (!used.has(cursor)) return cursor;
+    cursor = format(addDays(parseISO(cursor), -1), "yyyy-MM-dd");
+  }
+
   const afterAnchor = format(addDays(parseISO(anchor), 1), "yyyy-MM-dd");
   const fromFuture = scanForwardForFreeDate(afterAnchor, used, analyticsWindow);
   if (fromFuture) return fromFuture;
-
-  const newest = records.reduce((max, r) => {
-    const d = normalizeTableRowDate(r.date);
-    return d > max ? d : max;
-  }, "");
-  if (newest) {
-    const afterNewest = format(addDays(parseISO(newest), 1), "yyyy-MM-dd");
-    const fromNewest = scanForwardForFreeDate(afterNewest, used, analyticsWindow);
-    if (fromNewest) return fromNewest;
-  }
-
-  let backward = anchor;
-  for (let i = 0; i < 500; i++) {
-    if (backward < analyticsWindow.start) break;
-    if (!used.has(backward)) return backward;
-    backward = format(addDays(parseISO(backward), -1), "yyyy-MM-dd");
-  }
 
   return anchor;
 }

@@ -20,6 +20,7 @@ import {
   getRecentAnalyticsWindow,
   getStoreAnalyticsAnchorEnd,
 } from "@/lib/store/recent-analytics-window";
+import { getRollingDashboardDateRange } from "@/lib/store/rolling-dashboard-range";
 import { validateRecentAnalyticsRecords } from "@/lib/store/recent-analytics-save";
 import { DEFAULT_ASIN_COMPARISON_LABEL } from "@/lib/store/resolve-dashboard-ui";
 import { notifyStoreOverridesUpdated } from "@/lib/store/use-display-store-config";
@@ -549,9 +550,10 @@ export default function AdminPage() {
                   </h2>
                   <p className="mt-1 text-xs text-muted-foreground">
                     Matches the four KPI cards on Account Sales Report. Values apply
-                    when the dashboard uses this store&apos;s default date range (
-                    {config.defaultDateRange.start} to {config.defaultDateRange.end}).
-                    Chart series come from the Recent analytics tab. Advanced:{" "}
+                    when the dashboard uses the rolling last-30-days window (
+                    {getRollingDashboardDateRange().start} to{" "}
+                    {getRollingDashboardDateRange().end}). Chart and table data come
+                    from the Recent analytics tab. Advanced:{" "}
                     <code className="text-[11px]">walmart.timeSeries</code> (JSON tab).
                   </p>
                 </div>
