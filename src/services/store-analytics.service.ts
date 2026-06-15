@@ -7,6 +7,10 @@ import {
   computeRecentAnalyticsKpiIncrement,
 } from "@/lib/store/recent-analytics-kpi-increment";
 import {
+  applyAmazonKpiDisplayAdjustment,
+  applyWalmartKpiDisplayMultiplier,
+} from "@/lib/store/kpi-display-adjustment";
+import {
   getResolvedAmazonBundle,
   getResolvedWalmartBundle,
   loadStoreOverrides,
@@ -154,6 +158,8 @@ export async function getAmazonDashboard(
     baseAggregate = applyIncrementToAmazonAggregate(baseAggregate, kpiIncrement);
   }
 
+  baseAggregate = applyAmazonKpiDisplayAdjustment(storeId as StoreId, baseAggregate);
+
   const aggregate = overrides?.aggregate
     ? { ...baseAggregate, ...overrides.aggregate }
     : baseAggregate;
@@ -216,6 +222,8 @@ export async function getWalmartInsights(
   ) {
     summary = applyIncrementToWalmartSummary(summary, kpiIncrement);
   }
+
+  summary = applyWalmartKpiDisplayMultiplier(summary);
 
   if (overrides?.summary) {
     summary = { ...summary, ...overrides.summary };
