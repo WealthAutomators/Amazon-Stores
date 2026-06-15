@@ -22,6 +22,12 @@ export const STORE_FAVICON = {
   walmart: `/favicons/walmart-seller-center.png?v=${FAVICON_VERSION}`,
 } as const;
 
+export function getFaviconHref(
+  marketplace: StoreConfig["marketplace"]
+): string {
+  return STORE_FAVICON[marketplace];
+}
+
 export function getStoreIconsMetadata(
   marketplace: StoreConfig["marketplace"]
 ): NonNullable<Metadata["icons"]> {
