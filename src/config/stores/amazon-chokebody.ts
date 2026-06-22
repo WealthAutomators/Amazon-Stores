@@ -27,7 +27,7 @@ export const amazonChokebodyConfig: StoreConfig = {
   dashboard: {
     asinTitle: "Deep dive into your sales",
     asinComparisonLabel: "Compared to prior week (June 15 – June 21, 2026)",
-    defaultAsinCategory: "declining_sales",
+    defaultAsinCategory: "increasing_sales",
     asinLayout: "carousel",
   },
 };

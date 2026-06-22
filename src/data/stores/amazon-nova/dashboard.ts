@@ -20,7 +20,7 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
     paragraphs: [
       "In April 2026, your ordered product sales reached $326, down approximately 97% year over year. Units ordered totaled 24 for the month—a near-complete collapse compared to the prior year.",
       "For the selected date range, ordered product sales totaled $487,735.84 on 22,686 units with an average of $25.21 per order item. Performance peaked in mid-2025 before declining sharply starting in late 2025.",
-      "Review Products Below Market Average in the ASIN carousel—several SKUs show measurable gaps versus similar listings in your category.",
+      "Review Products Below Market Average in the ASIN carousel—AOZORA matcha and Aozora stylus pen SKUs show measurable gaps versus similar listings in your category.",
     ],
   },
   asinAlerts: [
@@ -30,18 +30,18 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
       imageUrl: "/products/kursat-matcha-whisk-set.png",
       category: "below_market_average",
       metricLabel:
-        "Last week sales were $47.81 below the market average for similar ASINs",
-      deltaAmount: -47.81,
+        "Last week sales were $51.40 below the market average for similar ASINs",
+      deltaAmount: -51.4,
     },
     {
-      asin: "B08KIT100",
-      title: "Bamboo Drawer Organizer Expandable",
-      imageUrl:
-        "https://images.unsplash.com/photo-1556909114-f6e7ad7d4046?w=120&h=120&fit=crop",
+      asin: "B0C8KPEN18",
+      title:
+        "Aozora 18 Pack Ballpoint Pens Smooth Writing 2-in-1 Stylus Retractable Pen",
+      imageUrl: "/products/kursat-aozora-stylus-pens.png",
       category: "below_market_average",
       metricLabel:
-        "Last week sales were $32.15 below the market average for similar ASINs",
-      deltaAmount: -32.15,
+        "Last week sales were $34.60 below the market average for similar ASINs",
+      deltaAmount: -34.6,
     },
     {
       asin: "B09LMP200",
