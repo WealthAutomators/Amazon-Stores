@@ -5,7 +5,11 @@ import {
   applyIncrementToAmazonAggregate,
   computeRecentAnalyticsKpiIncrement,
 } from "@/lib/store/recent-analytics-kpi-increment";
-import { applyAmazonKpiDisplayAdjustment } from "@/lib/store/kpi-display-adjustment";
+import {
+  applyAmazonKpiDisplayAdjustment,
+  getAmazonKpiDisplayMultiplier,
+  scaleAmazonTimeSeriesForDisplay,
+} from "@/lib/store/kpi-display-adjustment";
 import {
   getResolvedAmazonBundle,
   loadStoreOverrides,
@@ -152,7 +156,15 @@ export async function getAmazonDashboard(
     baseAggregate = applyIncrementToAmazonAggregate(baseAggregate, kpiIncrement);
   }
 
+  const chartMultiplier = getAmazonKpiDisplayMultiplier(
+    storeId as StoreId,
+    baseAggregate
+  );
   baseAggregate = applyAmazonKpiDisplayAdjustment(storeId as StoreId, baseAggregate);
+  const adjustedTimeSeries = scaleAmazonTimeSeriesForDisplay(
+    timeSeries,
+    chartMultiplier
+  );
 
   const aggregate = overrides?.aggregate
     ? { ...baseAggregate, ...overrides.aggregate }
@@ -165,7 +177,7 @@ export async function getAmazonDashboard(
 
   return {
     snapshot,
-    timeSeries,
+    timeSeries: adjustedTimeSeries,
     aggregate,
     insights: bundle.config.insights,
     asinAlerts: bundle.config.asinAlerts,

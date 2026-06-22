@@ -1,13 +1,24 @@
 import type { StoreId } from "@/config/stores/types";
-import type { CompareSalesAggregate } from "@/types/amazon";
+import type { CompareSalesAggregate, SalesTimeSeriesPoint } from "@/types/amazon";
 
-/** Default headline KPI uplift (charts unchanged). */
-export const STORE_KPI_DISPLAY_MULTIPLIER = 1.02;
+/** Default headline KPI uplift applied to snapshot cards and chart series. */
+export const STORE_KPI_DISPLAY_MULTIPLIER = 1.1;
 
 /** Pin ordered product sales to an exact KPI total for a store. */
 const AMAZON_KPI_SALES_TARGETS: Partial<Record<StoreId, number>> = {
-  "amazon-chokebody": 1_641_125.53,
+  "amazon-chokebody": 1_805_238.08,
 };
+
+export function getAmazonKpiDisplayMultiplier(
+  storeId: StoreId,
+  aggregate: CompareSalesAggregate
+): number {
+  const salesTarget = AMAZON_KPI_SALES_TARGETS[storeId];
+  if (salesTarget && aggregate.orderedProductSales > 0) {
+    return salesTarget / aggregate.orderedProductSales;
+  }
+  return STORE_KPI_DISPLAY_MULTIPLIER;
+}
 
 function scaleAmazonAggregate(
   aggregate: CompareSalesAggregate,
@@ -38,15 +49,44 @@ function scaleAmazonAggregate(
   };
 }
 
+/** Scale chart series by the same multiplier used for KPI display. */
+export function scaleAmazonTimeSeriesForDisplay(
+  series: SalesTimeSeriesPoint[],
+  multiplier: number
+): SalesTimeSeriesPoint[] {
+  if (multiplier === 1 || series.length === 0) return series;
+
+  const scaled = series.map((p) => ({
+    ...p,
+    unitsOrdered: Math.round(p.unitsOrdered * multiplier),
+    orderedProductSales:
+      Math.round(p.orderedProductSales * multiplier * 100) / 100,
+  }));
+
+  const targetSales = series.reduce((s, p) => s + p.orderedProductSales, 0) * multiplier;
+  const scaledSales = scaled.reduce((s, p) => s + p.orderedProductSales, 0);
+  const drift = Math.round((targetSales - scaledSales) * 100) / 100;
+  if (drift !== 0) {
+    const last = scaled.length - 1;
+    scaled[last] = {
+      ...scaled[last],
+      orderedProductSales:
+        Math.round((scaled[last].orderedProductSales + drift) * 100) / 100,
+    };
+  }
+
+  return scaled;
+}
+
 export function applyAmazonKpiDisplayAdjustment(
   storeId: StoreId,
   aggregate: CompareSalesAggregate
 ): CompareSalesAggregate {
   const salesTarget = AMAZON_KPI_SALES_TARGETS[storeId];
+  const multiplier = getAmazonKpiDisplayMultiplier(storeId, aggregate);
   if (salesTarget && aggregate.orderedProductSales > 0) {
-    const multiplier = salesTarget / aggregate.orderedProductSales;
     return scaleAmazonAggregate(aggregate, multiplier, salesTarget);
   }
 
-  return scaleAmazonAggregate(aggregate, STORE_KPI_DISPLAY_MULTIPLIER);
+  return scaleAmazonAggregate(aggregate, multiplier);
 }

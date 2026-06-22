@@ -4,7 +4,7 @@ const TAIL_DAYS = 5;
 const SEED_OFFSET = 99105;
 
 /** Growth multipliers relative to baseline for each tail day (day 0 = first of last 5). */
-const GROWTH_CURVE = [1.04, 1.065, 1.2, 1.12, 1.08];
+const GROWTH_CURVE = [1.07, 1.1, 1.24, 1.18, 1.14];
 
 export type TrailingGrowthProfile =
   | "amazon-apex"
@@ -63,7 +63,7 @@ function profileNoiseScale(profile: TrailingGrowthProfile): number {
 }
 
 function profileBlend(_profile: TrailingGrowthProfile): number {
-  return 0.65;
+  return 0.72;
 }
 
 function growthMultiplier(

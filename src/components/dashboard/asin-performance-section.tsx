@@ -100,7 +100,7 @@ function AsinCard({
 export function AsinPerformanceSection({
   alerts,
   title = "Deep dive into your sales",
-  comparisonLabel = "Compared to prior week (June 8 – June 14, 2026)",
+  comparisonLabel = "Compared to prior week (June 15 – June 21, 2026)",
   defaultAsinCategory = "declining_sales",
   layout = "carousel",
 }: AsinPerformanceSectionProps) {
