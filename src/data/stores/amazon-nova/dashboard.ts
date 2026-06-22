@@ -20,7 +20,7 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
     paragraphs: [
       "In April 2026, your ordered product sales reached $326, down approximately 97% year over year. Units ordered totaled 24 for the month—a near-complete collapse compared to the prior year.",
       "For the selected date range, ordered product sales totaled $487,735.84 on 22,686 units with an average of $25.21 per order item. Performance peaked in mid-2025 before declining sharply starting in late 2025.",
-      "Review Products Below Market Average in the ASIN carousel—AOZORA matcha and Aozora stylus pen SKUs show measurable gaps versus similar listings in your category.",
+      "Review Products Below Market Average in the ASIN carousel—AOZORA matcha and Aozora ballpoint pen SKUs show measurable gaps versus similar listings in your category.",
     ],
   },
   asinAlerts: [
@@ -34,14 +34,14 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
       deltaAmount: -51.4,
     },
     {
-      asin: "B0C8KPEN18",
+      asin: "B0D2RK4PEN",
       title:
-        "Aozora 18 Pack Ballpoint Pens Smooth Writing 2-in-1 Stylus Retractable Pen",
+        "Aozora 18 Pack Ballpoint Pens Smooth Writing 2-in-1 Stylus Retractable Ballpoint Pen with Stylus Tip, 1.0 mm Black Ink (9 Pens with 9 Refills)",
       imageUrl: "/products/kursat-aozora-stylus-pens.png",
       category: "below_market_average",
       metricLabel:
-        "Last week sales were $34.60 below the market average for similar ASINs",
-      deltaAmount: -34.6,
+        "Last week sales were $37.85 below the market average for similar ASINs",
+      deltaAmount: -37.85,
     },
     {
       asin: "B09LMP200",
