@@ -20,19 +20,10 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
     paragraphs: [
       "In April 2026, your ordered product sales reached $326, down approximately 97% year over year. Units ordered totaled 24 for the month—a near-complete collapse compared to the prior year.",
       "For the selected date range, ordered product sales totaled $487,735.84 on 22,686 units with an average of $25.21 per order item. Performance peaked in mid-2025 before declining sharply starting in late 2025.",
-      "Review Products Below Market Average in the ASIN carousel—AOZORA matcha and Aozora ballpoint pen SKUs show measurable gaps versus similar listings in your category.",
+      "Review Products Below Market Average in the ASIN carousel—the Aozora ballpoint pen SKU shows a measurable gap versus similar listings in your category.",
     ],
   },
   asinAlerts: [
-    {
-      asin: "B0F7JMBW44",
-      title: "AOZORA HOME Matcha Whisk Set",
-      imageUrl: "/products/kursat-matcha-whisk-set.png",
-      category: "below_market_average",
-      metricLabel:
-        "Last week sales were $51.40 below the market average for similar ASINs",
-      deltaAmount: -51.4,
-    },
     {
       asin: "B0D2RK4PEN",
       title:
