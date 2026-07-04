@@ -6,12 +6,12 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
   timeSeriesMultiplier: 0.62,
   timeSeriesProfile: "midmarket-spike-decline",
   seriesStart: "2024-08-14",
-  seriesEnd: "2026-07-02",
+  seriesEnd: "2026-07-06",
   defaultAggregate: {
     label: "Selected date range",
-    totalOrderItems: 23126,
-    unitsOrdered: 27117,
-    orderedProductSales: 583222.07,
+    totalOrderItems: 23592,
+    unitsOrdered: 27663,
+    orderedProductSales: 594974.29,
     avgUnitsPerOrderItem: 1.17,
     avgSalesPerOrderItem: 25.22,
   },
@@ -26,9 +26,8 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
   asinAlerts: [
     {
       asin: "B0D2RK4PEN",
-      title:
-        "Aozora Ballpoint Pens Black Ink Medium Point with Super Soft Grip Retractable Ball Point Pen 1.0mm Office Decor School Supplies (15pcs-GOLD)",
-      imageUrl: "/products/kursat-aozora-stylus-pens.png",
+      title: "Smart LED Desk Lamp Dimmable",
+      imageUrl: "/products/kursat-led-desk-lamp.png",
       category: "below_market_average",
       metricLabel:
         "Last week sales were $37.85 below the market average for similar ASINs",
@@ -36,44 +35,41 @@ export const amazonNovaDataConfig: AmazonStoreDataConfig = {
     },
     {
       asin: "B09LMP200",
-      title: "Smart LED Desk Lamp Dimmable",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=120&h=120&fit=crop",
+      title: "Memory Foam Bath Mat Set 2-Pack",
+      imageUrl: "/products/kursat-bath-mat.png",
       category: "top_sales_products",
       metricLabel: "$1,124.50 in ordered product sales last week",
       deltaAmount: 1124.5,
     },
     {
       asin: "B07THR300",
-      title: "Memory Foam Bath Mat Set 2-Pack",
-      imageUrl:
-        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=120&h=120&fit=crop",
+      title: "Countertop Spice Rack 3-Tier",
+      imageUrl: "/products/kursat-spice-rack.png",
       category: "declining_sales",
       metricLabel: "$334.20 decline in ordered product sales",
       deltaAmount: -334.2,
     },
     {
       asin: "B08ORG400",
-      title: "Countertop Spice Rack 3-Tier",
-      imageUrl: "/products/kursat-spice-rack.png",
+      title: "Under-Shelf Basket Wire 2-Pack",
+      imageUrl: "/products/kursat-wire-basket.png",
       category: "increasing_sales",
       metricLabel: "$456.80 increase in ordered product sales",
       deltaAmount: 456.8,
     },
     {
       asin: "B09TRA500",
-      title: "Under-Shelf Basket Wire 2-Pack",
-      imageUrl:
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=120&h=120&fit=crop",
+      title: "Glass Food Storage Containers 12-Piece",
+      imageUrl: "/products/kursat-glass-containers.png",
       category: "declining_traffic",
       metricLabel: "14% decline in page views",
       deltaAmount: -14,
     },
     {
       asin: "B07LMP600",
-      title: "Glass Food Storage Containers 12-Piece",
-      imageUrl:
-        "https://images.unsplash.com/photo-1585515320310-259814833e62?w=120&h=120&fit=crop",
+      title:
+        "Aozora Ballpoint Pens Black Ink Medium Point with Super Soft Grip Retractable Ball Point Pen 1.0mm Office Decor School Supplies (15pcs-GOLD)",
+      imageUrl: "/products/kursat-aozora-stylus-pens.png",
       category: "increasing_traffic",
       metricLabel: "9% increase in page views",
       deltaAmount: 9,

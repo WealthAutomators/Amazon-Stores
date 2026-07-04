@@ -6,12 +6,12 @@ export const amazonApexDataConfig: AmazonStoreDataConfig = {
   timeSeriesMultiplier: 1.12,
   timeSeriesProfile: "enterprise-twin-peak",
   seriesStart: "2024-05-15",
-  seriesEnd: "2026-07-02",
+  seriesEnd: "2026-07-06",
   defaultAggregate: {
     label: "Selected date range",
-    totalOrderItems: 528859,
-    unitsOrdered: 577271,
-    orderedProductSales: 12162174.97,
+    totalOrderItems: 539516,
+    unitsOrdered: 588903,
+    orderedProductSales: 12407248.88,
     avgUnitsPerOrderItem: 1.09,
     avgSalesPerOrderItem: 23.0,
   },
@@ -26,8 +26,8 @@ export const amazonApexDataConfig: AmazonStoreDataConfig = {
   asinAlerts: [
     {
       asin: "B07KWXNGT2",
-      title: "Sanabul Essential Quick Hand Wraps",
-      imageUrl: "/products/sanabul-quick-hand-wraps.png",
+      title: "Sanabul Elastic Professional 120\" Hand Wraps",
+      imageUrl: "/products/sanabul-120-hand-wraps.png",
       category: "growth_opportunities",
       metricLabel:
         "This ASIN has a sales gap of $13,280 when compared to similar ASINs",
@@ -35,8 +35,8 @@ export const amazonApexDataConfig: AmazonStoreDataConfig = {
     },
     {
       asin: "B01N7VAPNN",
-      title: "Sanabul Elastic Professional 120\" Hand Wraps",
-      imageUrl: "/products/sanabul-120-hand-wraps.png",
+      title: "Sanabul Essential Gel Quick Hand Wraps",
+      imageUrl: "/products/sanabul-gel-quick-wraps-black.png",
       category: "growth_opportunities",
       metricLabel:
         "This ASIN has a sales gap of $9,540 when compared to similar ASINs",
@@ -44,8 +44,8 @@ export const amazonApexDataConfig: AmazonStoreDataConfig = {
     },
     {
       asin: "B07FYMQ8KL",
-      title: "Sanabul Essential Gel Quick Hand Wraps",
-      imageUrl: "/products/sanabul-gel-quick-wraps-black.png",
+      title: "Sanabul Gel Boxing Hand Wraps",
+      imageUrl: "/products/sanabul-gel-hand-wraps-pink.png",
       category: "growth_opportunities",
       metricLabel:
         "This ASIN has a sales gap of $6,820 when compared to similar ASINs",
@@ -53,8 +53,8 @@ export const amazonApexDataConfig: AmazonStoreDataConfig = {
     },
     {
       asin: "B071HM8GNL",
-      title: "Sanabul Gel Boxing Hand Wraps",
-      imageUrl: "/products/sanabul-gel-hand-wraps-pink.png",
+      title: "Sanabul Hand Wraps 180 Inch Elastic",
+      imageUrl: "/products/sanabul-180-hand-wraps.png",
       category: "growth_opportunities",
       metricLabel:
         "This ASIN has a sales gap of $5,520 when compared to similar ASINs",
@@ -62,36 +62,32 @@ export const amazonApexDataConfig: AmazonStoreDataConfig = {
     },
     {
       asin: "B08TENT001",
-      title: "Sanabul Hand Wraps 180 Inch Elastic",
-      imageUrl:
-        "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=120&h=120&fit=crop",
+      title: "Sanabul Shin Guards for Muay Thai",
+      imageUrl: "/products/sanabul-shin-guards.png",
       category: "declining_sales",
       metricLabel: "$892.10 decline in ordered product sales",
       deltaAmount: -892.1,
     },
     {
       asin: "B09PACK202",
-      title: "Sanabul Shin Guards for Muay Thai",
-      imageUrl:
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=120&h=120&fit=crop",
+      title: "Sanabul Focus Mitts Pro Pair",
+      imageUrl: "/products/sanabul-focus-mitts.png",
       category: "increasing_sales",
       metricLabel: "$1,240.50 increase in ordered product sales",
       deltaAmount: 1240.5,
     },
     {
       asin: "B07HYD303",
-      title: "Sanabul Focus Mitts Pro Pair",
-      imageUrl:
-        "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=120&h=120&fit=crop",
+      title: "Sanabul Jump Rope Speed Cable",
+      imageUrl: "/products/sanabul-speed-jump-rope.png",
       category: "increasing_traffic",
       metricLabel: "12% increase in page views",
       deltaAmount: 456.3,
     },
     {
       asin: "B09ABC5678",
-      title: "Sanabul Jump Rope Speed Cable",
-      imageUrl:
-        "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=120&h=120&fit=crop",
+      title: "Sanabul Essential Quick Hand Wraps",
+      imageUrl: "/products/sanabul-quick-hand-wraps.png",
       category: "declining_traffic",
       metricLabel: "8% decline in page views",
       deltaAmount: -298.15,
