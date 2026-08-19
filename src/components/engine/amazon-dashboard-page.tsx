@@ -127,7 +127,6 @@ export function AmazonDashboardPage({
   return (
     <AmazonDashboardView
       title={title}
-      storeId={storeId}
       data={data}
       draftFilters={draft}
       isLoading={isLoading}

@@ -14,7 +14,6 @@ import type { SalesDashboardResponse } from "@/types/amazon";
 
 interface AmazonDashboardViewProps {
   title: string;
-  storeId?: string;
   data: SalesDashboardResponse | null;
   draftFilters: ReportFilters;
   isLoading: boolean;
@@ -31,7 +30,6 @@ interface AmazonDashboardViewProps {
 
 export function AmazonDashboardView({
   title,
-  storeId,
   data,
   draftFilters,
   isLoading,
@@ -74,24 +72,6 @@ export function AmazonDashboardView({
           timeSeries={data?.timeSeries}
           aggregate={data?.aggregate}
           isLoading={isLoading}
-          unitsYDomain={
-            storeId === "amazon-chokebody"
-              ? [0, 500]
-              : storeId === "amazon-apex"
-                ? [0, 4000]
-                : storeId === "amazon-nova"
-                  ? [0, 400]
-                  : undefined
-          }
-          salesYDomain={
-            storeId === "amazon-chokebody"
-              ? [0, 15000]
-              : storeId === "amazon-apex"
-                ? [0, 80000]
-                : storeId === "amazon-nova"
-                  ? [0, 10000]
-                  : undefined
-          }
         />
         <BusinessInsightsPanel insights={data?.insights} isLoading={isLoading} />
       </AmazonDashboardOverlay>

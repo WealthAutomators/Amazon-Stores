@@ -127,7 +127,13 @@ export function EnterpriseTimeSeriesChart({
             max: yDomain[1],
             ...(ySplitNumber != null ? { splitNumber: ySplitNumber } : {}),
           }
-        : { scale: true };
+        : {
+            min: 0,
+            scale: true,
+            // Add a little headroom so peaks do not pin to the top edge.
+            max: (value: { max: number }) =>
+              value.max <= 0 ? 1 : Math.ceil(value.max * 1.08),
+          };
 
     const dataZoomComponents: EChartsOption["dataZoom"] = [
       {
