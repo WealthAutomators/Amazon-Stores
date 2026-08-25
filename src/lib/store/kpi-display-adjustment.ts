@@ -2,11 +2,11 @@ import type { StoreId } from "@/config/stores/types";
 import type { CompareSalesAggregate, SalesTimeSeriesPoint } from "@/types/amazon";
 
 /** Default headline KPI uplift applied to snapshot cards and chart series. */
-export const STORE_KPI_DISPLAY_MULTIPLIER = 1.519045199;
+export const STORE_KPI_DISPLAY_MULTIPLIER = 1.526640425;
 
 /** Pin ordered product sales to an exact KPI total for a store. */
 const AMAZON_KPI_SALES_TARGETS: Partial<Record<StoreId, number>> = {
-  "amazon-chokebody": 2_496_297.45,
+  "amazon-chokebody": 2_508_778.94,
 };
 
 export function getAmazonKpiDisplayMultiplier(
