@@ -27,7 +27,7 @@ export const amazonNovaConfig: StoreConfig = {
   dashboard: {
     asinTitle: "Deep dive your ASIN performance",
     asinComparisonLabel:
-      "Comparing Monday-Sunday ending September 27, 2026 to similar ASINs",
+      "Comparing Monday-Sunday ending October 4, 2026 to similar ASINs",
     defaultAsinCategory: "below_market_average",
     asinLayout: "horizontal",
   },
