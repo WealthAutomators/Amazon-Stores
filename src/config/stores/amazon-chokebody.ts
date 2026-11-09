@@ -26,7 +26,7 @@ export const amazonChokebodyConfig: StoreConfig = {
   routes: { home: getAmazonSalesDashboardPath("amazon-chokebody") },
   dashboard: {
     asinTitle: "Deep dive into your sales",
-    asinComparisonLabel: "Compared to prior week (October 26 – November 1, 2026)",
+    asinComparisonLabel: "Compared to prior week (November 2 – November 8, 2026)",
     defaultAsinCategory: "increasing_sales",
     asinLayout: "carousel",
   },
